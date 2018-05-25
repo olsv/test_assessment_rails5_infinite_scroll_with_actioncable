@@ -1,25 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe "users/index", type: :view do
+  let(:users) { build_stubbed_list(:user, 2) }
+
   before(:each) do
-    assign(:users, [
-      User.create!(
-        :first_name => "First Name",
-        :last_name => "Last Name",
-        :email => "Email"
-      ),
-      User.create!(
-        :first_name => "First Name",
-        :last_name => "Last Name",
-        :email => "Email"
-      )
-    ])
+    assign :users, Kaminari.paginate_array(users).page(nil)
+    assign :sort_params, { field: 'last_name', direction: 'desc' }
   end
 
   it "renders a list of users" do
     render
-    assert_select "tr>td", :text => "First Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Last Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Email".to_s, :count => 2
+    assert_select "th > a.current.desc", text: 'Last Name'
+
+    %i(email first_name last_name).each do |field|
+      users.each do |user|
+        assert_select "tr>td", text: user.public_send(field)
+      end
+    end
   end
 end

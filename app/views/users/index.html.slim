@@ -6,11 +6,11 @@
       thead
         tr
           th
-            = sortable_column :first_name, state: @sort_params
+            = sortable_column :first_name, state: @sort_params, title: 'First Name'
           th
-            = sortable_column :last_name, state: @sort_params
+            = sortable_column :last_name, state: @sort_params, title: 'Last Name'
           th
-            = sortable_column :email, state: @sort_params
+            = sortable_column :email, state: @sort_params, title: 'Email'
           th &nbsp
 
       tbody.users
