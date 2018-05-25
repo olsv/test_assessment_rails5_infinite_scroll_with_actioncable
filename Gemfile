@@ -35,6 +35,7 @@ gem 'kaminari-actionview'
 
 gem 'mongoid', '~> 7.0'
 
+gem 'simple_form'
 gem 'slim'
 
 # Use Capistrano for deployment
