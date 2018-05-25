@@ -1,25 +1,21 @@
-h1 Listing users
+.row
+  .col-md-12
+    h1 Listing users
 
-table
-  thead
-    tr
-      th First name
-      th Last name
-      th Email
-      th
-      th
-      th
+    table.table.table-striped.header-fixed.user-list
+      thead
+        tr
+          th
+            = sortable_column :first_name, state: @sort_params
+          th
+            = sortable_column :last_name, state: @sort_params
+          th
+            = sortable_column :email, state: @sort_params
+          th &nbsp
 
-  tbody
-    - @users.each do |user|
-      tr
-        td = user.first_name
-        td = user.last_name
-        td = user.email
-        td = link_to 'Show', user
-        td = link_to 'Edit', edit_user_path(user)
-        td = link_to 'Destroy', user, data: { confirm: 'Are you sure?' }, method: :delete
+      tbody.users
+        = render @users
 
-br
+    = render 'pagination'
 
-= link_to 'New User', new_user_path
+    = link_to 'New User', new_user_path, class: 'btn btn-primary'

@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @sort_params = sort_params
+    @users = User.ordered_by(sort_params).page(sort_params[:page])
   end
 
   # GET /users/1
@@ -70,5 +71,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email)
+    end
+
+    def sort_params
+      params.permit(:page, :field, :direction).to_hash.symbolize_keys
     end
 end
