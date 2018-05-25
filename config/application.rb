@@ -27,5 +27,15 @@ module UserList
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.template_engine = :slim
+      g.test_framework = :rspec
+      g.jbuilder = false
+      g.api = false
+      g.helper = false
+      g.scaffold_stylesheet = false
+      g.stylesheets = false
+    end
   end
 end
