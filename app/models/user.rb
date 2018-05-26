@@ -4,6 +4,8 @@ class User
   field :last_name, type: String
   field :email, type: String
 
+  paginates_per 25
+
   validates_presence_of :first_name, :last_name, :email
   validates_format_of :email, with: /.+\@.+\..+/, if: -> { email.present? }
 
