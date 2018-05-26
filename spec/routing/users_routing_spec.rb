@@ -3,6 +3,10 @@ require "rails_helper"
 RSpec.describe UsersController, type: :routing do
   describe "routing" do
 
+    it "is the root route" do
+      expect(:get => '/').to route_to("users#index")
+    end
+
     it "routes to #index" do
       expect(:get => "/users").to route_to("users#index")
     end
