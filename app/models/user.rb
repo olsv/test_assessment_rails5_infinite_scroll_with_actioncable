@@ -5,7 +5,7 @@ class User
   field :email, type: String
 
   validates_presence_of :first_name, :last_name, :email
-  validates_format_of :email, with: /.+\@.+\..+/
+  validates_format_of :email, with: /.+\@.+\..+/, if: -> { email.present? }
 
   scope :ordered_by, -> (field: :id, direction: :asc, **rest) { order_by(field.to_sym.send(direction)) }
 end

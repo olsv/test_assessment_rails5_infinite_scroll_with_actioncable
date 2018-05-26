@@ -5,7 +5,8 @@ RSpec.describe User, type: :model do
   describe '#valid?' do
     let(:valid_attributes) { attributes_for(:user) }
 
-    subject(:valid?) { described_class.new(attributes).valid? }
+    subject(:record) { described_class.new(attributes) }
+    subject(:valid?) { record.valid? }
 
     context 'valid record' do
       let(:attributes) { valid_attributes }
@@ -17,7 +18,10 @@ RSpec.describe User, type: :model do
       context "when #{ field } is missing" do
         let(:attributes) { valid_attributes.except(field) }
 
-        it { expect(valid?).to be_falsey }
+        it 'is invalid' do
+          expect(valid?).to be_falsey
+          expect(record.errors[field]).to eql ["can't be blank"]
+        end
       end
     end
 
@@ -25,7 +29,10 @@ RSpec.describe User, type: :model do
       %w(string string@ some@string @string.com string.com).each do |sample|
         let(:attributes) { valid_attributes.merge(email: sample) }
 
-        it { expect(valid?).to be_falsey }
+        it 'is invalid' do
+          expect(valid?).to be_falsey
+          expect(record.errors[:email]).to eql ["is invalid"]
+        end
       end
     end
   end
