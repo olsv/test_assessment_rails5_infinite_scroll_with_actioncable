@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
-  if $('.pagination').length && $('.order-list').length
+  if $('.pagination').length && $('.user-list').length
     tbody = $('.user-list .users')
 
     tbody.scroll ->
