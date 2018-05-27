@@ -18,7 +18,8 @@ class User
   private
 
   def broadcast(action)
-    payload = { id: id.to_s, action: action, attributes: attributes.except(:id) }
+    payload = { id: id.to_s, action: action }
+    payload[:attributes] = attributes.except(:id) if action == 'updated'
     ActionCable.server.broadcast 'user_channel', payload
   end
 end

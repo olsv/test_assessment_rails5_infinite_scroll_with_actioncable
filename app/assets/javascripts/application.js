@@ -16,3 +16,18 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+
+window.location_refresher = {
+  scheduled: false,
+
+  refresh: function() {
+    if (!this.scheduled) {
+      this.scheduled = true;
+
+      setTimeout(function() {
+        location.reload();
+      }, 2000)
+    }
+  }
+};

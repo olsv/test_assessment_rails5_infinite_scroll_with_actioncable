@@ -1,2 +1,6 @@
-$('.user-list .users').append('<%=j render @users %>')
-$('.pagination').replaceWith('<%=j render 'pagination' %>')
+$('.user-list .users').append('<%=j render @users %>');
+$('.pagination').replaceWith('<%=j render 'pagination' %>');
+queryParams = (new URL(document.location))
+<% Rails.logger.info "DEBUG #{ @users.current_page }" %>
+queryParams.searchParams.set('page', '<%= @users.current_page %>');
+window.history.pushState({}, "whatever", queryParams)

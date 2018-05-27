@@ -15,7 +15,7 @@ App.user = App.cable.subscriptions.create "UserChannel",
     switch data.action
       when 'created'
         # do nothing
-        ''
+        location_refresher.refresh()
       when 'updated'
         # update if row presents
         if row.length
@@ -24,4 +24,4 @@ App.user = App.cable.subscriptions.create "UserChannel",
       when 'deleted'
         # remove if row exists and row in the table
         if users_table.length && row.length
-          row.remove()
+          location_refresher.refresh()

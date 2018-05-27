@@ -2,14 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
-  if $('.pagination').length && $('.user-list').length
-    tbody = $('.user-list .users')
+  current_page = $('meta[name=current_page]')
+  return unless current_page && current_page.attr('controller') == 'users' && current_page.attr('action') == 'index'
 
-    tbody.scroll ->
-      url = $('.pagination a[rel=next]').attr('href')
+  tbody = $('.user-list .users')
 
-      if url && (tbody[0].scrollHeight - tbody[0].clientHeight - tbody.scrollTop() < 50)
-        $('.pagination').text('loading more...')
-        $.getScript(url)
+  tbody.scroll ->
+    url = $('.pagination a[rel=next]').attr('href')
 
-    $(window).scroll()
+    if url && (tbody[0].scrollHeight - tbody[0].clientHeight - tbody.scrollTop() < 50)
+      $('.pagination').text('loading more...')
+      $.getScript(url)
+
+  $(window).scroll()
