@@ -10,4 +10,15 @@ class User
   validates_format_of :email, with: /.+\@.+\..+/, if: -> { email.present? }
 
   scope :ordered_by, -> (field: :id, direction: :asc, **rest) { order_by(field.to_sym.send(direction)) }
+
+  after_destroy -> { broadcast('deleted') }
+  after_create  -> { broadcast('created') }
+  after_update  -> { broadcast('updated') }
+
+  private
+
+  def broadcast(action)
+    payload = { id: id.to_s, action: action, attributes: attributes.except(:id) }
+    ActionCable.server.broadcast 'user_channel', payload
+  end
 end

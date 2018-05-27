@@ -1,7 +1,10 @@
-tr
-  td = user.first_name
-  td = user.last_name
-  td = user.email
+tr data-user-id = user.id
+  td data-attribute-first_name = ''
+    = user.first_name
+  td data-attribute-last_name = ''
+    = user.last_name
+  td data-attribute-email = ''
+    = user.email
   td.text-right
     => link_to 'Show', user
     => link_to 'Edit', edit_user_path(user)

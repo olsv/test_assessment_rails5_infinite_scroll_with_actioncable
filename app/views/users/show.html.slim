@@ -1,15 +1,24 @@
-p#notice = notice
+.row data-user-id = @user.id
+  .col-md-12
+    h1 User #{ @user.id } details
 
-p
-  strong First name:
-  = @user.first_name
-p
-  strong Last name:
-  = @user.last_name
-p
-  strong Email:
-  = @user.email
+    p#notice = notice
 
-=> link_to 'Edit', edit_user_path(@user)
-'|
-=< link_to 'Back', users_path
+    .row
+      .col-md-2 First name:
+      .col-md-10 data-attribute-first_name = ""
+        = @user.first_name
+
+    .row
+      .col-md-2 Last name:
+      .col-md-10 data-attribute-last_name = ""
+        = @user.last_name
+
+    .row
+      .col-md-2 Email:
+      .col-md-10 data-attribute-email_name = ""
+        = @user.email
+
+    => link_to 'Edit', edit_user_path(@user)
+    '|
+    =< link_to 'Back', users_path
